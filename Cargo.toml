@@ -1,0 +1,14 @@
+[package]
+name = "cute_strings"
+version = "0.1.0"
+edition = "2021"
+keywords = ["strings", "coloring"]
+repository = "https://github.com/faculerena/cute_strings"
+license = "MIT"
+
+[features]
+regex = ["dep:regex", "dep:thiserror"]
+
+[dependencies]
+regex = { version = "1.5", optional = true}
+thiserror = { version = "1.0.62", optional = true}
