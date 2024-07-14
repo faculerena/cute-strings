@@ -17,7 +17,12 @@ fn main() {
 
 #[cfg(feature = "regex")]
 fn do_that_with_regex(printer: &mut CuteString) {
-    printer.color_regex(r"\d+", AsciiColor::Red).unwrap();
+    printer
+        .color_regex(r"\d+", AsciiColor::Red)
+        .unwrap()
+        .color_range(0, 5, AsciiColor::Blue)
+        .underline_regex(r"[A-Z]{2,}", AsciiColor::Purple, '^')
+        .unwrap();
 }
 
 #[cfg(not(feature = "regex"))]
