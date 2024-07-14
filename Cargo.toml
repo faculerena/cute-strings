@@ -5,7 +5,7 @@ edition = "2021"
 keywords = ["strings", "coloring"]
 repository = "https://github.com/faculerena/cute_strings"
 license = "MIT"
-
+description = "Library to colorize strings in the terminal"
 [features]
 regex = ["dep:regex", "dep:thiserror"]
 
