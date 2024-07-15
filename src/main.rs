@@ -3,8 +3,9 @@ use cute_strings::{AsciiColor, CuteString};
 fn main() {
     let mut printer = CuteString::new();
 
-    printer
-        .set_string("Th1s 1s an 3x4mple of 4 str1ng that w1ll b3 COLORED w1th 2 d1ff3rent colors.");
+    printer.set_string(
+        "Th1s 1s an 3x4mple of 4 str1ng that w1ll b3 COLORED w1th 2 d1ff3rent colors.".to_owned(),
+    );
 
     #[cfg(feature = "regex")]
     do_that_with_regex(&mut printer);

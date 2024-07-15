@@ -19,10 +19,10 @@ mod tests {
     #[test]
     fn set_string_without_color() {
         let mut printer = CuteString::new();
-        let printer = printer.set_string(SINGLE_LINE_MSG);
+        let printer = printer.set_string(SINGLE_LINE_MSG.to_string());
         assert_eq!(
             printer.to_string(),
-            SINGLE_LINE_MSG.to_owned() + ESCAPE_SEQUENCE_RESET
+            SINGLE_LINE_MSG.to_string().to_owned() + ESCAPE_SEQUENCE_RESET
         );
     }
 
@@ -30,7 +30,7 @@ mod tests {
     fn set_string_with_one_color() {
         let mut printer = CuteString::new();
         let printer = printer
-            .set_string(SINGLE_LINE_MSG)
+            .set_string(SINGLE_LINE_MSG.to_string())
             .set_default_color(AsciiColor::Red);
         assert_eq!(
             printer.to_string(),
@@ -42,7 +42,7 @@ mod tests {
     fn set_string_with_overlapping_colors() {
         let mut printer = CuteString::new();
         let printer = printer
-            .set_string(SINGLE_LINE_MSG)
+            .set_string(SINGLE_LINE_MSG.to_string())
             .set_default_color(AsciiColor::Red)
             .color_range(0, 20, AsciiColor::Blue)
             .color_range(10, 30, AsciiColor::Green);
@@ -58,7 +58,7 @@ mod tests {
     fn set_regex_coloring() {
         let mut printer = CuteString::new();
         let printer = printer
-            .set_string(SINGLE_LINE_MSG)
+            .set_string(SINGLE_LINE_MSG.to_string())
             .color_regex(r"\w{5}", AsciiColor::Red)
             .unwrap();
 
@@ -72,7 +72,7 @@ mod tests {
     fn set_regex_underline() {
         let mut printer = CuteString::new();
         let printer = printer
-            .set_string(SINGLE_LINE_MSG)
+            .set_string(SINGLE_LINE_MSG.to_string())
             .underline_regex(r"[a-zA-Z]{2,}", AsciiColor::Purple, '^')
             .unwrap();
 
@@ -87,7 +87,7 @@ mod tests {
     fn set_regex_underline_multiline() {
         let mut printer = CuteString::new();
         let printer = printer
-            .set_string(MULTI_LINE_MSG)
+            .set_string(MULTI_LINE_MSG.to_string())
             .underline_regex(r"[a-zA-Z]{2,}", AsciiColor::Purple, '^')
             .unwrap();
 
@@ -101,7 +101,7 @@ mod tests {
     fn color_char() {
         let mut printer = CuteString::new();
         let printer = printer
-            .set_string(SINGLE_LINE_MSG)
+            .set_string(SINGLE_LINE_MSG.to_string())
             .color_char('a', AsciiColor::Red);
         assert_eq!(printer.to_string(), "Lorem ipsum dolor sit \u{1b}[31ma\u{1b}[0mmet, consectetur \u{1b}[31ma\u{1b}[0mdipiscing elit. Null\u{1b}[31ma\u{1b}[0mm nec purus.\u{1b}[0m\n");
     }
@@ -109,7 +109,9 @@ mod tests {
     #[test]
     fn color_digits() {
         let mut printer = CuteString::new();
-        let printer = printer.set_string(MULTI_LINE_MSG).color_digits();
+        let printer = printer
+            .set_string(MULTI_LINE_MSG.to_string())
+            .color_digits();
         assert_eq!(printer.to_string(), "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\u{1b}[0m\nNullam nec purus.\u{1b}[0m\n\u{1b}[31m1\u{1b}[33m2\u{1b}[32m3\u{1b}[0m \u{1b}[34m4\u{1b}[35m5\u{1b}[36m6\u{1b}[0m \u{1b}[38;5;208m7\u{1b}[38;5;205m8\u{1b}[38;5;51m9\u{1b}[0m.\u{1b}[0m\n");
     }
 
@@ -117,7 +119,7 @@ mod tests {
     fn color_line() {
         let mut printer = CuteString::new();
         let printer = printer
-            .set_string(MULTI_LINE_MSG)
+            .set_string(MULTI_LINE_MSG.to_string())
             .color_line(1, AsciiColor::Red);
         assert_eq!(printer.to_string(), "\u{1b}[31mLorem ipsum dolor sit amet, consectetur adipiscing elit.\u{1b}[0m\nNullam nec purus.\u{1b}[0m\n123 456 789.\u{1b}[0m\n");
     }

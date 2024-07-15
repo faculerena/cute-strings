@@ -1,5 +1,7 @@
 #[cfg(feature = "regex")]
 use regex::Regex;
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
 #[cfg(feature = "regex")]
 use thiserror::Error;
 
@@ -13,6 +15,7 @@ pub enum CuteStringError {
 }
 
 #[derive(PartialEq, Eq, Clone, Copy)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum AsciiColor {
     Red,
     Green,
@@ -47,12 +50,14 @@ impl Display for AsciiColor {
     }
 }
 
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 struct ColoredRange {
     start: usize,
     end: usize,
     color: AsciiColor,
 }
 
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 struct Underline {
     start: usize,
     end: usize,
@@ -61,8 +66,9 @@ struct Underline {
 }
 
 #[derive(Default)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct CuteString {
-    string: Option<&'static str>,
+    string: Option<String>,
     default_color: Option<AsciiColor>,
     colored_ranges: Vec<ColoredRange>,
     underlines: Vec<Underline>,
@@ -80,12 +86,12 @@ impl CuteString {
     }
 
     /// Return the string to be colored
-    pub fn get_string(&self) -> Option<&'static str> {
-        self.string
+    pub fn get_string(&self) -> Option<String> {
+        self.string.clone()
     }
 
     /// Set the `string` to be saved for coloring
-    pub fn set_string(&mut self, string: &'static str) -> &mut Self {
+    pub fn set_string(&mut self, string: String) -> &mut Self {
         self.string = Some(string);
         self
     }
@@ -326,5 +332,27 @@ impl Display for CuteString {
             }
         }
         Ok(())
+    }
+}
+
+impl From<String> for CuteString {
+    fn from(s: String) -> Self {
+        CuteString {
+            string: Some(s),
+            colored_ranges: Vec::new(),
+            underlines: Vec::new(),
+            default_color: None,
+        }
+    }
+}
+
+impl From<&str> for CuteString {
+    fn from(s: &str) -> Self {
+        CuteString {
+            string: Some(s.to_owned()),
+            colored_ranges: Vec::new(),
+            underlines: Vec::new(),
+            default_color: None,
+        }
     }
 }

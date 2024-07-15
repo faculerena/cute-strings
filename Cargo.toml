@@ -6,9 +6,12 @@ keywords = ["strings", "coloring"]
 repository = "https://github.com/faculerena/cute_strings"
 license = "MIT"
 description = "Library to colorize strings in the terminal"
+
 [features]
 regex = ["dep:regex", "dep:thiserror"]
+serde = ["dep:serde"]
 
 [dependencies]
-regex = { version = "1.5", optional = true}
-thiserror = { version = "1.0.62", optional = true}
+regex = { version = "1.5", optional = true }
+serde = { version = "1.0.204", features = ["derive"], optional = true }
+thiserror = { version = "1.0.62", optional = true }
