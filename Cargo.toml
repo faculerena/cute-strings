@@ -1,9 +1,9 @@
 [package]
 name = "cute_strings"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 keywords = ["strings", "coloring"]
-repository = "https://github.com/faculerena/cute_strings"
+repository = "https://github.com/faculerena/cute-strings"
 license = "MIT"
 description = "Library to colorize strings in the terminal"
 
